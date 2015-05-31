@@ -10,19 +10,23 @@ public class MoveThing : MonoBehaviour {
 	public Sprite[] walk = new Sprite[8];
 	public Sprite[] walkLeft = new Sprite[8];
 	public Sprite[] walkUp =new Sprite[8];
+	public Sprite[] stand = new Sprite[3];
 	public Sprite staticFrame;
 	public float animateSpeed;
 	public bool walking;
 	public bool walkingLeft;
 	public bool walkingUp;
 	public bool shooting;
+	public bool standing;
 	public GameObject dialogue;
 	public GameObject bobDialogue;
 	private float movex = 0f;
 	private float movey = 0f;
 	// Use this for initialization
 	void Start () {
-
+		standing = true;
+		shooting = false;
+		StartCoroutine ("Loiter");
 	}
 	
 	// Update is called once per frame
@@ -41,8 +45,10 @@ public class MoveThing : MonoBehaviour {
 					walkingUp = true;
 					walking = false;
 					walkingLeft = false;
+					standing = false;
 					StopCoroutine("Animate");
 					StopCoroutine("WalkLeft");
+					StopCoroutine("Loiter");
 					StartCoroutine("WalkUp");
 				}
 				movey = 1f;
@@ -53,9 +59,11 @@ public class MoveThing : MonoBehaviour {
 					if(!walking){
 						walkingLeft =  false;
 						walkingUp = false;
+						standing = false;
 						walking = true;
 						StopCoroutine("WalkingLeft");
 						StopCoroutine("WalkingUp");
+						StopCoroutine("Loiter");
 						StartCoroutine("Animate");
 					}
 				}
@@ -66,8 +74,10 @@ public class MoveThing : MonoBehaviour {
 				if(!walkingLeft){
 					walkingLeft= true;
 					walking = false;
+					standing = false;
 					StopCoroutine("Animate");
 					StopCoroutine("WalkUp");
+					StopCoroutine("Loiter");
 					StartCoroutine("WalkLeft");
 				}
 
@@ -78,8 +88,10 @@ public class MoveThing : MonoBehaviour {
 				if(!walking){
 					walking = true;
 					walkingLeft = false;
+					standing = false;
 					StopCoroutine("WalkLeft");
 					StopCoroutine("WalkUp");
+					StopCoroutine("Loiter");
 					StartCoroutine("Animate");
 				}
 				movex = 1f;
@@ -92,7 +104,10 @@ public class MoveThing : MonoBehaviour {
 				walkingUp =  false;
 				walking = false;
 				walkingLeft = false;
-				GetComponent<SpriteRenderer>().sprite = staticFrame;
+				if(!standing){
+					standing = true;
+					StartCoroutine("Loiter");
+				}
 
 			}
 
@@ -163,6 +178,15 @@ public class MoveThing : MonoBehaviour {
 			foreach(Sprite frame in walkUp){
 				GetComponent<SpriteRenderer>().sprite = frame;
 				yield return new WaitForSeconds(animateSpeed);
+			}
+		}
+	}
+
+	private IEnumerator Loiter(){
+		while (standing) {
+			foreach (Sprite frame in stand) {
+				GetComponent<SpriteRenderer>().sprite = frame;
+				yield return new WaitForSeconds(Random.Range(1f, 5f));
 			}
 		}
 	}

@@ -74,7 +74,6 @@ public class bulletCatcher : MonoBehaviour {
 		GetComponent<Rigidbody2D> ().velocity = new Vector2 (-20f + Random.Range(-3f, 3f), -20f + Random.Range(-3f, 3f));
 		yield return new WaitForSeconds (2f);
 		if (!bobIsDead) {
-			Destroy (gameObject);
 			player.GetComponent<MoveThing>().movementEnabled = false;
 			StartCoroutine("gameOverScreen");
 		}

@@ -25,7 +25,6 @@ public class BobDialogue : MonoBehaviour {
 			player.GetComponent<MoveThing> ().movementEnabled = true;
 			GameObject bobSprite = GameObject.Find("Bob");
 			bobSprite.GetComponent<bulletCatcher>().RunAway();
-			Destroy (gameObject);
 		}
 		bobsTextField.text = bobText;
 	}
