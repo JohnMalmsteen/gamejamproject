@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -7,6 +7,12 @@ public class MoveThing : MonoBehaviour {
 	public GameObject bullet;
 	public bool firstMove = true;
 	public bool movementEnabled = false;
+	public Sprite[] walk = new Sprite[8];
+	public Sprite[] walkLeft = new Sprite[8];
+	public Sprite[] walkUp =new Sprite[8];
+	public Sprite staticFrame;
+	public float animateSpeed;
+	public bool walking;
 
 	public GameObject dialogue;
 	public GameObject bobDialogue;
@@ -29,6 +35,7 @@ public class MoveThing : MonoBehaviour {
 		} else if(movementEnabled){
 
 			if (Input.GetKey (KeyCode.W)) {
+
 				movey = 1f;
 			}
 
@@ -37,17 +44,32 @@ public class MoveThing : MonoBehaviour {
 			}
 
 			if (Input.GetKey (KeyCode.A)) {
+
 				movex = -1f;
 			}
 
 			if (Input.GetKey (KeyCode.D)) {
+				if(!walking){
+					walking = true;
+
+					StartCoroutine("Animate");
+				}
 				movex = 1f;
 			}
+
+			if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W)){
+				StopCoroutine("Animate");
+				walking=false;
+				GetComponent<SpriteRenderer>().sprite = staticFrame;
+
+			}
+
 			if (!EventSystem.current.IsPointerOverGameObject ()){
 				if (Input.GetMouseButtonDown (0)) {
 					FireBullet ();
 				}
 			}
+
 		}
 
 	}
@@ -71,5 +93,15 @@ public class MoveThing : MonoBehaviour {
 			direction.y += Random.Range (-.1f, .1f);
 		} 
 		newBullet.GetComponent<Rigidbody2D> ().AddForce (direction * 1800f);
+	}
+
+	private IEnumerator Animate()
+	{
+		while (walking) {
+			foreach (Sprite frame in walk) {
+				GetComponent<SpriteRenderer> ().sprite = frame;	
+				yield return new WaitForSeconds (animateSpeed);
+			}
+		}
 	}
 }
