@@ -13,7 +13,8 @@ public class MoveThing : MonoBehaviour {
 	public Sprite staticFrame;
 	public float animateSpeed;
 	public bool walking;
-
+	public bool walkingLeft;
+	public bool walkingUp;
 	public GameObject dialogue;
 	public GameObject bobDialogue;
 	private float movex = 0f;
@@ -35,15 +36,36 @@ public class MoveThing : MonoBehaviour {
 		} else if(movementEnabled){
 
 			if (Input.GetKey (KeyCode.W)) {
-
+				if(!walkingUp){
+					walkingUp = true;
+					walking = false;
+					walkingLeft = false;
+					StopCoroutine("Animate");
+					StopCoroutine("WalkLeft");
+					StartCoroutine("WalkUp");
+				}
 				movey = 1f;
 			}
 
 			if (Input.GetKey (KeyCode.S)) {
+				if(!walking){
+					walking = true;
+					walkingLeft = false;
+					StopCoroutine("WalkLeft");
+					StopCoroutine("WalkUp");
+					StartCoroutine("Animate");
+				}
 				movey = -1f;
 			}
 
 			if (Input.GetKey (KeyCode.A)) {
+				if(!walkingLeft){
+					walkingLeft= true;
+					walking = false;
+					StopCoroutine("Animate");
+					StopCoroutine("WalkUp");
+					StartCoroutine("WalkLeft");
+				}
 
 				movex = -1f;
 			}
@@ -51,7 +73,9 @@ public class MoveThing : MonoBehaviour {
 			if (Input.GetKey (KeyCode.D)) {
 				if(!walking){
 					walking = true;
-
+					walkingLeft = false;
+					StopCoroutine("WalkLeft");
+					StopCoroutine("WalkUp");
 					StartCoroutine("Animate");
 				}
 				movex = 1f;
@@ -59,7 +83,11 @@ public class MoveThing : MonoBehaviour {
 
 			if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W)){
 				StopCoroutine("Animate");
-				walking=false;
+				StopCoroutine("WalkLeft");
+				StopCoroutine("WalkUp");
+				walkingUp =  false;
+				walking = false;
+				walkingLeft = false;
 				GetComponent<SpriteRenderer>().sprite = staticFrame;
 
 			}
@@ -76,6 +104,10 @@ public class MoveThing : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collision){
 		if (collision.gameObject.name == "Bob") {
+			StopCoroutine("Animate");
+			StopCoroutine ("WalkLeft");
+			walking = false;
+			walkingLeft = false;
 			Instantiate(bobDialogue, transform.position, Quaternion.identity);
 			movementEnabled = false;
 		}
@@ -101,6 +133,24 @@ public class MoveThing : MonoBehaviour {
 			foreach (Sprite frame in walk) {
 				GetComponent<SpriteRenderer> ().sprite = frame;	
 				yield return new WaitForSeconds (animateSpeed);
+			}
+		}
+	}
+
+	private IEnumerator WalkLeft(){
+		while (walkingLeft) {
+			foreach(Sprite frame in walkLeft){
+				GetComponent<SpriteRenderer>().sprite = frame;
+				yield return new WaitForSeconds(animateSpeed);
+			}
+		}
+	}
+
+	private IEnumerator WalkUp(){
+		while (walkingUp) {
+			foreach(Sprite frame in walkUp){
+				GetComponent<SpriteRenderer>().sprite = frame;
+				yield return new WaitForSeconds(animateSpeed);
 			}
 		}
 	}
