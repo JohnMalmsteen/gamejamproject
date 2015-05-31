@@ -8,12 +8,13 @@ public class BobDialogue : MonoBehaviour {
 	private string[] question2Answers = {"Damn things were blue like the sky! Never seen anything like it man!", "Man, what difference does it make? Stop hassling me!"};
 	private string[] question3Answers = {"They were pretty small little things, like weird dogs or something!", "Say, why're you asking me this stuff anyway?"};
 	private string[] question4Answers = {"Dang weird things looked like tripods!", "...What kind of question is that? Leave me alone!"};
-	public string bobText = "Yo man, did you see this shit round here?!";
+	public string bobText;
 
 	private Text bobsTextField;
 
 	void Start(){
 		bobsTextField = GameObject.Find ("bobText").GetComponent<Text>();
+		bobText = "Yo man, did you see this shit round here?!";
 	}
 
 	void Update(){

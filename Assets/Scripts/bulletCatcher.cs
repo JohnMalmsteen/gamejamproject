@@ -9,11 +9,14 @@ public class bulletCatcher : MonoBehaviour {
 	public bool running;
 	public bool bobIsDead;
 	public float animateSpeed;
+	public GameObject gameOver;
+	public GameObject player;
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine ("sitAnimation");
 		bobIsDead = false;
+		player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame
@@ -24,10 +27,14 @@ public class bulletCatcher : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collision){
 		if(collision.name.Equals("bullet(Clone)")){
 			Destroy(collision.gameObject);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+			GetComponent<CircleCollider2D>().enabled = false;
 			StopCoroutine("RunAwayBob");
 			StopCoroutine("turningTime");
 			StopCoroutine("sitAnimation");
 			StartCoroutine("BobDeath");
+			player.GetComponent<MoveThing>().movementEnabled = false;
+			Instantiate(gameOver, transform.position, Quaternion.identity);
 			bobIsDead = true;
 		}
 	}

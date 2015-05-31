@@ -15,6 +15,7 @@ public class MoveThing : MonoBehaviour {
 	public bool walking;
 	public bool walkingLeft;
 	public bool walkingUp;
+	public bool shooting;
 	public GameObject dialogue;
 	public GameObject bobDialogue;
 	private float movex = 0f;
@@ -48,13 +49,6 @@ public class MoveThing : MonoBehaviour {
 			}
 
 			if (Input.GetKey (KeyCode.S)) {
-				if(!walking){
-					walking = true;
-					walkingLeft = false;
-					StopCoroutine("WalkLeft");
-					StopCoroutine("WalkUp");
-					StartCoroutine("Animate");
-				}
 				movey = -1f;
 			}
 
@@ -94,7 +88,7 @@ public class MoveThing : MonoBehaviour {
 
 			if (!EventSystem.current.IsPointerOverGameObject ()){
 				if (Input.GetMouseButtonDown (0)) {
-					FireBullet ();
+					StartCoroutine("FireBullet");
 				}
 			}
 
@@ -117,14 +111,22 @@ public class MoveThing : MonoBehaviour {
 		transform.GetComponent<Rigidbody2D> ().position = new Vector2(transform.position.x + (runspeed*movex), transform.position.y + (runspeed*movey));
 	}
 
-	void FireBullet(){
-		GameObject newBullet = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity);
-		Vector2 direction = ((Vector2)Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20)) - (Vector2)transform.position).normalized;
-		if (movex != 0 || movey != 0f) {
-			direction.x += Random.Range (-.1f, .1f);
-			direction.y += Random.Range (-.1f, .1f);
-		} 
-		newBullet.GetComponent<Rigidbody2D> ().AddForce (direction * 1800f);
+	private IEnumerator FireBullet(){
+		if (!shooting) {
+			shooting = true;
+			GetComponent<AudioSource>().Play();
+			Vector2 bulletPos = transform.position;
+			bulletPos.y += 3.4f;
+			GameObject newBullet = (GameObject)Instantiate (bullet, bulletPos, Quaternion.identity);
+			Vector2 direction = ((Vector2)Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 20)) - (Vector2)bulletPos).normalized;
+			if (movex != 0 || movey != 0f) {
+				direction.x += Random.Range (-.1f, .1f);
+				direction.y += Random.Range (-.1f, .1f);
+			} 
+			newBullet.GetComponent<Rigidbody2D> ().AddForce (direction * 4000f);
+			yield return new WaitForSeconds(.5f);
+			shooting = false;
+		}
 	}
 
 	private IEnumerator Animate()
