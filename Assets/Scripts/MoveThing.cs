@@ -49,6 +49,16 @@ public class MoveThing : MonoBehaviour {
 			}
 
 			if (Input.GetKey (KeyCode.S)) {
+				if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)){
+					if(!walking){
+						walkingLeft =  false;
+						walkingUp = false;
+						walking = true;
+						StopCoroutine("WalkingLeft");
+						StopCoroutine("WalkingUp");
+						StartCoroutine("Animate");
+					}
+				}
 				movey = -1f;
 			}
 

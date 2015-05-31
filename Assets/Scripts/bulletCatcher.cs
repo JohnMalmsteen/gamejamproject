@@ -5,12 +5,14 @@ public class bulletCatcher : MonoBehaviour {
 	public Sprite [] bobSit = new Sprite[2];
 	public Sprite [] bobRun = new Sprite[8];
 	public Sprite [] bobDeath = new Sprite[8];
+	public Sprite [] flash = new Sprite[7];
 	public bool sitting = true;
 	public bool running;
 	public bool bobIsDead;
 	public float animateSpeed;
 	public GameObject gameOver;
 	public GameObject player;
+	public GameObject flasher;
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +36,8 @@ public class bulletCatcher : MonoBehaviour {
 			StopCoroutine("sitAnimation");
 			StartCoroutine("BobDeath");
 			player.GetComponent<MoveThing>().movementEnabled = false;
-			Instantiate(gameOver, transform.position, Quaternion.identity);
+
+			StartCoroutine("gameOverScreen");
 			bobIsDead = true;
 		}
 	}
@@ -72,7 +75,17 @@ public class bulletCatcher : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		if (!bobIsDead) {
 			Destroy (gameObject);
+			player.GetComponent<MoveThing>().movementEnabled = false;
+			StartCoroutine("gameOverScreen");
 		}
+
+	}
+
+	public IEnumerator gameOverScreen(){
+		yield return new WaitForSeconds (3f);
+		Instantiate(gameOver, transform.position, Quaternion.identity);
+		yield return new WaitForSeconds (2f);
+		Application.LoadLevel (0);
 
 	}
 
@@ -84,5 +97,16 @@ public class bulletCatcher : MonoBehaviour {
 
 		GetComponent<Rigidbody2D> ().velocity = new Vector2(-15f + Random.Range(-3f, 3f), -15f + Random.Range(-3f, 3f));
 		StartCoroutine ("turningTime");
+	}
+
+	public IEnumerator flashAnim(){
+		StopCoroutine ("sitAnimation");
+		GameObject flashSprite = (GameObject) Instantiate (flasher, transform.position, Quaternion.identity);
+		foreach (Sprite frame in flash) {
+			flashSprite.GetComponent<SpriteRenderer>().sprite = frame;
+			yield return new WaitForSeconds(.1f);
+		}
+		Destroy (flashSprite);
+		StartCoroutine("gameOverScreen");
 	}
 }

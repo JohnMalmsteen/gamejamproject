@@ -9,12 +9,14 @@ public class BobDialogue : MonoBehaviour {
 	private string[] question3Answers = {"They were pretty small little things, like weird dogs or something!", "Say, why're you asking me this stuff anyway?"};
 	private string[] question4Answers = {"Dang weird things looked like tripods!", "...What kind of question is that? Leave me alone!"};
 	public string bobText;
-
+	public Sprite[] flash = new Sprite[7];
 	private Text bobsTextField;
+	public GameObject bob;
 
 	void Start(){
 		bobsTextField = GameObject.Find ("bobText").GetComponent<Text>();
 		bobText = "Yo man, did you see this shit round here?!";
+		bob = GameObject.Find ("Bob");
 	}
 
 	void Update(){
@@ -68,8 +70,9 @@ public class BobDialogue : MonoBehaviour {
 	public void Neuralize(){
 		GameObject player = GameObject.Find ("Player");
 		player.GetComponent<MoveThing> ().movementEnabled = true;
-		GameObject bobsSprite = GameObject.Find ("Bob");
-		Destroy (bobsSprite);
+		bob.GetComponent<bulletCatcher> ().StartCoroutine ("flashAnim");
 		Destroy (gameObject);
 	}
+
+
 }
