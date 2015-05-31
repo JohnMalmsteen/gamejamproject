@@ -90,6 +90,8 @@ public class bulletCatcher : MonoBehaviour {
 	}
 
 	public void RunAway(){
+		GameObject bobDia = GameObject.Find ("bobDialogue(Clone)");
+		Destroy (bobDia);
 		sitting = false;
 		running = true;
 		StopCoroutine ("sitAnimation");
