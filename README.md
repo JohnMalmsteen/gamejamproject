@@ -10,6 +10,8 @@ must question people in the town to discern if they know the truth about a
 recent visit from extra terrestrial aliens, and if so to wipe their memories 
 with a zap from your Neuralizer.
 
+![Image of MiB Agent](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/hi_mib_walk_8.png)
+
 Over the course of the game jam we aimed to implement the basic gameplay.
 The people being questioned will grow suspicious and run away if you bother
 them too much. If they run when you think they know too much and cannot
@@ -27,3 +29,5 @@ More about the team:
 * **Art:** [darrenknet](https://github.com/darrenknet/)
 * **Game Design, Writing, Additional art:** [David-RM](https://github.com/David-RM/)
 * **Game Design, Writing:** Alessio Susi
+ 
+![Image of MiB Agent](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/Environments/hi_bg3.png)
