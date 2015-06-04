@@ -24,11 +24,13 @@ didn't make the 48 hour deadline.
 More about that game jam:
 http://091labs.com/2015/05/game-jam-may-29-31/
 
-More about the team:
+More about team *The Fighting Mongooses* a.k.a. *The Fighting Mongeese*:
 
-* **Programming:** [JohnMalmsteen](https://github.com/JohnMalmsteen/)
-* **Art:** [darrenknet](https://github.com/darrenknet/)
-* **Game Design, Writing, Additional art:** [David-RM](https://github.com/David-RM/)
-* **Game Design, Writing:** Alessio Susi
- 
+Team Member | Role
+------------ | -------------
+Alessio Susi | **Game Design & Writing** 
+[David-RM](https://github.com/David-RM/) | **Game Design, Writing & Additional Art**
+[darrenknet](https://github.com/darrenknet/) | **Art & Animation**
+[JohnMalmsteen](https://github.com/JohnMalmsteen/) | **Unity3D & Programming**
+
 ![Image of MiB Agent](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/Environments/hi_bg3.png)
