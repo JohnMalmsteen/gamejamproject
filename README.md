@@ -1,6 +1,9 @@
 # gamejamproject | Wiper
 
 This is a game made during the 48 hour Game Jam @ 091 Labs, May 2015 event. 
+
+![Image of Wiper Street Environment](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/Environments/hi_bg3.png)
+
 The game jam's theme was 
 
 >*"What if all the conspiracies are true?"*.
@@ -33,4 +36,3 @@ Alessio Susi | **Game Design & Writing**
 [darrenknet](https://github.com/darrenknet/) | **Art & Animation**
 [JohnMalmsteen](https://github.com/JohnMalmsteen/) | **Unity3D & Programming**
 
-![Image of MiB Agent](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/Environments/hi_bg3.png)
