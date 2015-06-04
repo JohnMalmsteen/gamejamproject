@@ -5,7 +5,7 @@ The game jam's theme was
 
 >*"What if all the conspiracies are true?"*.
 
-Wiper (working title) is a game in which you play a Men In Black agent who 
+Wiper (working title) is a game made in Unity 3D in which you play a Men In Black agent who 
 must question people in the town to discern if they know the truth about a 
 recent visit from extra terrestrial aliens, and if so to wipe their memories 
 with a zap from your Neuralizer.
@@ -13,9 +13,10 @@ with a zap from your Neuralizer.
 ![Image of MiB Agent](https://github.com/JohnMalmsteen/gamejamproject/blob/master/Assets/Sprites/hi_mib_walk_8.png)
 
 Over the course of the game jam we aimed to implement the basic gameplay.
-The people being questioned will grow suspicious and run away if you bother
-them too much. If they run when you think they know too much and cannot
-wipe their memory, then you may decide to shoot and kill them to keep the
+Some people may believe in many conspiracies, or just sort of spout nonsense.
+It's up to you to decide if other people will believe them, and ascertain their
+truth threat. As people are questioned they grow suspicious and run away if you bother
+them too much. Rightly so, as you may decide to shoot and kill them to keep the
 truth getting out. We planned many different 'you suck' game over screens,
 severity being on how horrible you are to the townsfolk, however these
 didn't make the 48 hour deadline.
